@@ -145,7 +145,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3.5">
+          <form onSubmit={handleSubmit} autoComplete="off" data-form-type="other" data-lpignore="true" className="space-y-3.5">
             {tab === 'register' && (
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1">您的姓名 / 暱稱 (Name)</label>
@@ -159,6 +159,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     onChange={(e) => setName(e.target.value)}
                     className="w-full pl-9 pr-3 py-2.5 rounded-xl glass-input text-xs"
                     autoComplete="off"
+                    data-lpignore="true"
                   />
                 </div>
               </div>
@@ -171,11 +172,13 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                 <input
                   type="text"
                   required
+                  name="app_uid"
                   placeholder="請輸入自訂帳號或學號"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full pl-9 pr-3 py-2.5 rounded-xl glass-input text-xs"
                   autoComplete="off"
+                  data-lpignore="true"
                 />
               </div>
             </div>
@@ -187,11 +190,13 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                 <input
                   type={showPassword ? "text" : "password"}
                   required
+                  name="app_key"
                   placeholder="請輸入密碼"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-9 pr-10 py-2.5 rounded-xl glass-input text-xs"
-                  autoComplete="new-password"
+                  autoComplete="one-time-code"
+                  data-lpignore="true"
                 />
                 <button
                   type="button"
