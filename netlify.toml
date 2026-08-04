@@ -1,0 +1,49 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Redirect /api/* to Netlify Functions (so frontend code doesn't need to change)
+[[redirects]]
+  from = "/api/auth/register"
+  to = "/.netlify/functions/auth-register"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth-login"
+  status = 200
+
+[[redirects]]
+  from = "/api/user/save"
+  to = "/.netlify/functions/user-save"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/users"
+  to = "/.netlify/functions/admin-users"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/delete-user"
+  to = "/.netlify/functions/admin-delete-user"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/reset-password"
+  to = "/.netlify/functions/admin-reset-password"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+# SPA fallback: all other routes serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

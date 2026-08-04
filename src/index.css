@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Font Scaling Classes applied on <html> root element */
+  html.font-scale-sm {
+    font-size: 85%;
+  }
+
+  html.font-scale-md {
+    font-size: 100%;
+  }
+
+  html.font-scale-lg {
+    font-size: 120%;
+  }
+
+  html.font-scale-xl {
+    font-size: 140%;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 transition-colors duration-300;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* Light Theme Variant - Rock Solid WCAG AAA High Contrast */
+  body.theme-light {
+    background-color: #f1f5f9;
+    color: #020617;
+  }
+
+  /* Midnight Blue Theme Variant */
+  body.theme-midnight {
+    background-color: #030712;
+    color: #f0f9ff;
+  }
+}
+
+/* Glassmorphism Panel Utilities */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-light .glass-panel {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #020617 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.theme-light .glass-card {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #020617 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+.glass-input {
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.theme-light .glass-input {
+  background: #ffffff !important;
+  border: 2px solid #64748b !important;
+  color: #020617 !important;
+  font-weight: 700 !important;
+}
+
+.theme-light .glass-input:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.25) !important;
+}
+
+/* Force High Contrast for Light Theme across all text/background elements */
+.theme-light th, 
+.theme-light td,
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light label,
+.theme-light p,
+.theme-light span,
+.theme-light div,
+.theme-light button {
+  color: #020617;
+}
+
+.theme-light .text-slate-400,
+.theme-light .text-slate-300,
+.theme-light .text-slate-200,
+.theme-light .text-slate-100,
+.theme-light .text-white {
+  color: #0f172a !important;
+}
+
+.theme-light .text-cyan-400,
+.theme-light .text-cyan-300,
+.theme-light .text-cyan-500 {
+  color: #0369a1 !important;
+}
+
+.theme-light .bg-slate-950,
+.theme-light .bg-slate-900,
+.theme-light .bg-slate-900\/60,
+.theme-light .bg-slate-900\/80,
+.theme-light .bg-slate-900\/90,
+.theme-light .bg-slate-950\/40,
+.theme-light .bg-slate-950\/60,
+.theme-light .bg-slate-950\/80,
+.theme-light .bg-slate-950\/90 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+.theme-light .bg-slate-800,
+.theme-light .bg-slate-800\/50,
+.theme-light .bg-slate-800\/60,
+.theme-light .bg-slate-800\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.theme-light .border-slate-800,
+.theme-light .border-slate-800\/40,
+.theme-light .border-slate-800\/60,
+.theme-light .border-slate-800\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Custom Sleek Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.8);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+  }
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
