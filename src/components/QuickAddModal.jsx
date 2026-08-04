@@ -216,7 +216,7 @@ export default function QuickAddModal({
                         : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:bg-slate-800/50'
                     }`}
                   >
-                    <div className="truncate font-semibold">{c.shortName || c.name}</div>
+                    <div className="line-clamp-2 break-words font-semibold">{c.shortName || c.name}</div>
                     <div className="text-[10px] text-slate-400 truncate mt-0.5">{c.location}</div>
                   </button>
                 );

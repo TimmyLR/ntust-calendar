@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Plus, Trash2, X, MapPin, Calendar as CalendarIcon, Clock, Edit3 } from 'lucide-react';
 
-export default function CalendarView({ courses, events, onOpenQuickAdd, onDeleteEvent, onEditEvent }) {
+export default function CalendarView({ courses, events, onOpenQuickAdd, onOpenCustomAdd, onDeleteEvent, onEditEvent }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedFilter, setSelectedFilter] = useState('ALL');
   const [activeDetailEvent, setActiveDetailEvent] = useState(null);
+  const [addMenuDate, setAddMenuDate] = useState(null);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -171,13 +172,45 @@ export default function CalendarView({ courses, events, onOpenQuickAdd, onDelete
                     {day}
                   </span>
 
-                  <button
-                    onClick={() => onOpenQuickAdd(null, dateKey)}
-                    className="p-0.5 text-slate-500 hover:text-cyan-400 text-[10px]"
-                    title="在當日新增行程"
-                  >
-                    <Plus className="w-3 h-3" />
-                  </button>
+                  <div className="relative">
+                    <button
+                      onClick={() => setAddMenuDate(addMenuDate === dateKey ? null : dateKey)}
+                      className="p-0.5 text-slate-500 hover:text-cyan-400 text-[10px]"
+                      title="在當日新增行程"
+                    >
+                      <Plus className="w-3 h-3" />
+                    </button>
+                    {addMenuDate === dateKey && (
+                      <>
+                        <div 
+                          className="fixed inset-0 z-40" 
+                          onClick={(e) => { e.stopPropagation(); setAddMenuDate(null); }}
+                        />
+                        <div className="absolute right-0 top-6 z-50 w-[100px] bg-slate-800 border border-slate-700 rounded-lg shadow-xl overflow-hidden text-xs">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onOpenQuickAdd(null, dateKey);
+                              setAddMenuDate(null);
+                            }}
+                            className="w-full text-left px-2.5 py-2 text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
+                          >
+                            📚 課程行程
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onOpenCustomAdd();
+                              setAddMenuDate(null);
+                            }}
+                            className="w-full text-left px-2.5 py-2 text-slate-200 hover:bg-slate-700 hover:text-white transition-colors border-t border-slate-700/50"
+                          >
+                            📌 個人行程
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 {/* Day Events List */}
@@ -196,9 +229,9 @@ export default function CalendarView({ courses, events, onOpenQuickAdd, onDelete
                         color: '#f8fafc'
                       }}
                     >
-                      <div className="truncate font-medium flex items-center gap-1">
+                      <div className="font-medium flex items-center gap-1">
                         <span>{evt.tagIcon || '📌'}</span>
-                        <span className="truncate">{evt.title}</span>
+                        <span className="break-words line-clamp-2">{evt.title}</span>
                       </div>
                     </div>
                   ))}

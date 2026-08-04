@@ -229,6 +229,7 @@ export default function AddCustomModal({
               <label className="block text-xs font-extrabold text-slate-300 mb-1">開始時間</label>
               <input
                 type="time"
+                lang="en-GB"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
                 className="w-full px-2.5 py-2 rounded-xl glass-input text-xs font-mono font-bold"
@@ -238,6 +239,7 @@ export default function AddCustomModal({
               <label className="block text-xs font-extrabold text-slate-300 mb-1">結束時間</label>
               <input
                 type="time"
+                lang="en-GB"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
                 className="w-full px-2.5 py-2 rounded-xl glass-input text-xs font-mono font-bold"

@@ -91,19 +91,24 @@ export default function App() {
     if (storedUser) setUser(storedUser);
     if (storedAnnounce) setAnnouncement(storedAnnounce);
 
-    if (storedCourses && storedCourses.length > 0) {
+    if (storedCourses !== null) {
       setCourses(storedCourses);
-    } else {
+    } else if (!storedUser) {
+      // Only show demo courses for first-time visitors (not logged in)
       setCourses(FIVE_SAMPLE_DEMO_COURSES);
       Storage.saveCourses(FIVE_SAMPLE_DEMO_COURSES);
+    } else {
+      setCourses([]);
     }
 
-    if (storedEvents && storedEvents.length > 0) {
+    if (storedEvents !== null) {
       setEvents(storedEvents);
-    } else {
+    } else if (!storedUser) {
       const initEvents = getInitialSampleEvents();
       setEvents(initEvents);
       Storage.saveEvents(initEvents);
+    } else {
+      setEvents([]);
     }
 
     if (storedTags && storedTags.length > 0) setTags(storedTags);
@@ -135,6 +140,16 @@ export default function App() {
   const syncUserDataToBackend = (activeUser, updatedCourses, updatedEvents) => {
     if (!activeUser || !activeUser.username) return;
     Storage.saveUserActiveData(activeUser.username, updatedCourses, updatedEvents);
+    // Also sync to server API for cross-device access
+    fetch('/api/user/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: activeUser.username,
+        courses: updatedCourses,
+        events: updatedEvents
+      })
+    }).catch(err => console.warn('[Sync] Server save failed:', err.message));
   };
 
   const handleAuthSuccess = (data) => {
