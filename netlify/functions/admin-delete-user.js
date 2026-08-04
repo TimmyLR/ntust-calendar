@@ -1,7 +1,7 @@
-const { getDb } = require('./utils/db');
-const { respond } = require('./utils/helpers');
+import { getDb } from './utils/db.js';
+import { respond } from './utils/helpers.js';
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== 'POST') return respond(405, { success: false, message: 'Method not allowed' });
 
   try {

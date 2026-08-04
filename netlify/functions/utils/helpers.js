@@ -1,14 +1,14 @@
-const crypto = require('crypto');
+import crypto from 'crypto';
 
-function hashPassword(pwd) {
+export function hashPassword(pwd) {
   return crypto.createHash('sha256').update(pwd).digest('hex');
 }
 
-function sanitize(str) {
+export function sanitize(str) {
   return (str || '').replace(/<[^>]*>/g, '').trim();
 }
 
-function headers(statusCode = 200) {
+export function respond(statusCode, body) {
   return {
     statusCode,
     headers: {
@@ -16,14 +16,6 @@ function headers(statusCode = 200) {
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
     },
-  };
-}
-
-function respond(statusCode, body) {
-  return {
-    ...headers(statusCode),
     body: JSON.stringify(body),
   };
 }
-
-module.exports = { hashPassword, sanitize, respond };

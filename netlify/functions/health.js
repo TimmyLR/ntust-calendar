@@ -1,6 +1,6 @@
-const { respond } = require('./utils/helpers');
+import { respond } from './utils/helpers.js';
 
-exports.handler = async () => {
+export const handler = async () => {
   return respond(200, {
     status: 'ok',
     time: new Date().toISOString(),

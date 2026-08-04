@@ -1,9 +1,8 @@
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 
-let cachedClient = null;
 let cachedDb = null;
 
-async function getDb() {
+export async function getDb() {
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error('MONGODB_URI environment variable is not set');
 
@@ -13,9 +12,6 @@ async function getDb() {
 
   const client = new MongoClient(uri);
   await client.connect();
-  cachedClient = client;
   cachedDb = client.db('ntust_calendar');
   return cachedDb;
 }
-
-module.exports = { getDb };
