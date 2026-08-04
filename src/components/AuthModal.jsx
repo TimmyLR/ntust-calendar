@@ -145,7 +145,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3.5">
             {tab === 'register' && (
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1">您的姓名 / 暱稱 (Name)</label>
@@ -158,6 +158,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full pl-9 pr-3 py-2.5 rounded-xl glass-input text-xs"
+                    autoComplete="off"
                   />
                 </div>
               </div>
@@ -174,6 +175,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full pl-9 pr-3 py-2.5 rounded-xl glass-input text-xs"
+                  autoComplete="off"
                 />
               </div>
             </div>
@@ -189,6 +191,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-9 pr-10 py-2.5 rounded-xl glass-input text-xs"
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
