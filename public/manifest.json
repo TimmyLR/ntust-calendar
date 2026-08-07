@@ -1,0 +1,21 @@
+{
+  "short_name": "臺科大行事曆",
+  "name": "NTUST Student Calendar - 臺科大學生行事曆與課表",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3652/3652191.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3652/3652191.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "display": "standalone",
+  "orientation": "portrait"
+}

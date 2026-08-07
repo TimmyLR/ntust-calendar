@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Settings, Moon, Sun, Type, RefreshCw, Download, Palette } from 'lucide-react';
+import { X, Settings, Moon, Sun, Type, RefreshCw, Download, Palette, Smartphone } from 'lucide-react';
 
 export default function SettingsModal({ 
   isOpen, 
@@ -9,7 +9,10 @@ export default function SettingsModal({
   fontSize, 
   onUpdateFontSize, 
   onResetDemoData,
-  onExportBackup
+  onExportBackup,
+  isInstallable,
+  isStandalone,
+  onInstallPWA
 }) {
   if (!isOpen) return null;
 
@@ -97,7 +100,31 @@ export default function SettingsModal({
             </div>
           </div>
 
-          {/* 3. Backup & Reset Actions */}
+          {/* 3. PWA Installation (Hidden if already in standalone app mode) */}
+          {!isStandalone && (
+            <div className="space-y-2 pt-4 border-t border-slate-800">
+              <label className="text-sm font-extrabold text-slate-200 flex items-center gap-2">
+                <Smartphone className="w-4 h-4 text-cyan-400" />
+                <span>應用程式安裝 (App Installation)</span>
+              </label>
+              {isInstallable ? (
+                <button
+                  type="button"
+                  onClick={onInstallPWA}
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 scale-[1.02]"
+                >
+                  <Smartphone className="w-4 h-4" />
+                  <span>📱 安裝至桌面 / 手機主畫面 (Install APP)</span>
+                </button>
+              ) : (
+                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 text-xs flex items-center justify-between">
+                  <span>💡 可使用瀏覽器選單「新增至主畫面」下載應用程式</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* 4. Backup & Reset Actions */}
           <div className="space-y-2 pt-4 border-t border-slate-800 flex justify-between items-center">
             <button
               type="button"

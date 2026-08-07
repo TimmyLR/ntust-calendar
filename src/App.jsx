@@ -38,6 +38,33 @@ export default function App() {
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const [isCustomAddOpen, setIsCustomAddOpen] = useState(false);
 
+  // PWA Install Prompt State
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    // Detect if app is running in standalone mode (already installed & opened from home screen)
+    const isStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    setIsStandalone(isStandaloneMode);
+
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, []);
+
+  const handleInstallPWA = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+  };
+
   // Quick add & edit contextual props
   const [quickAddCourseId, setQuickAddCourseId] = useState(null);
   const [quickAddDate, setQuickAddDate] = useState(null);
@@ -358,6 +385,9 @@ export default function App() {
         onUpdateFontSize={setFontSize}
         onResetDemoData={handleResetDemoData}
         onExportBackup={handleExportBackupJSON}
+        isInstallable={!!deferredPrompt}
+        isStandalone={isStandalone}
+        onInstallPWA={handleInstallPWA}
       />
 
       <ImportScheduleModal
